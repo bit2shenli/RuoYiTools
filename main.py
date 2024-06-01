@@ -128,6 +128,7 @@ if __name__ == "__main__":
     login_data = post_request(login_interface, **post_data)
 
     token = login_data["token"]
+    print(f"token:\n{token}\n")
     post_headers(token)  # headers 加入 token
     # print(get_headers())
 

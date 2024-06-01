@@ -20,6 +20,7 @@ http_url = "https://book-video-admin.eebbk.net"
 captcha_image_interface = "/book-video-admin/captchaImage"    # 获取验证码的图片接口
 login_interface = "/book-video-admin/login"                   # 登录
 task_interface = "/book-video-admin/bookVideo/videoTask/list"       # 获取任务
+get_new_tasks = "/book-video-admin/bookVideo/videoTask"
 
 
 # token = 'your_token_here'
