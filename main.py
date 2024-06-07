@@ -71,7 +71,7 @@ def get_question_status1():
 
 def get_question_status2(task_ids=None):
     """ 根据“题目ID”的集合，获取指定题目的状态，便于及时查询 """
-    page_num, page_size, statistics_total = 1, 20, 0        # statistics_total 本次统计数量
+    page_num, page_size, statistics_total = 1, 50, 0        # statistics_total 本次统计数量
 
     temp_results = []
     while True:
@@ -79,7 +79,7 @@ def get_question_status2(task_ids=None):
             "pageNum": page_num,
             "pageSize": page_size,
             "taskStatusList": [3, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19, 20, 21, 22, 23, 25, 26, 27, 28, 29,
-                               30, 31, 32, 33, 34, 35, 95]
+                               30, 31, 32, 33, 34, 35, 95, 98]
         }  # 98: "错题确认中" 排除统计范围
         task_data = get_request(task_interface, params=params)
         # print(task_data)
