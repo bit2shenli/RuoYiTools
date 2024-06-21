@@ -15,7 +15,7 @@ import datetime
 import requests
 import json
 
-
+"""
 # TODO 部署偌依系统的网址和各个请求接口名称，记得替换
 http_url = "https://book-video-admin.eebbk.net"
 captcha_image_interface = "/book-video-admin/captchaImage"    # 获取验证码的图片接口
@@ -32,7 +32,7 @@ login_interface = "/base/login"                               # 登录
 get_user_task = "/video/GetUserTask"
 post_pending_task = "/videoMake/GetPendingTask"
 post_receive_task = "/videoMake/ReceiveTask"                    # 领取题目的接口
-"""
+
 
 
 
@@ -132,7 +132,7 @@ def get_array():
 
 def print_curtime(custom_message):
     """
-    # 打印当前时间和自定义信息
+    打印当前时间和自定义信息，但是暂只支持一句
     :param custom_message: 这是你的自定义信息
     :return:
     """
