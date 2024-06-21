@@ -11,6 +11,7 @@
   date        : 2024/5/7 19:25
 -------------------------------------------------
 """
+import datetime
 import requests
 import json
 
@@ -21,6 +22,19 @@ captcha_image_interface = "/book-video-admin/captchaImage"    # 获取验证码�
 login_interface = "/book-video-admin/login"                   # 登录
 task_interface = "/book-video-admin/bookVideo/videoTask/list"       # 获取任务
 get_new_tasks = "/book-video-admin/bookVideo/videoTask"
+
+
+"""
+# TODO
+http_url = "https://jyy-api-v2.readboy.com"
+captcha_image_interface = "/base/captcha"                     # 获取验证码的图片接口
+login_interface = "/base/login"                               # 登录
+get_user_task = "/video/GetUserTask"
+post_pending_task = "/videoMake/GetPendingTask"
+post_receive_task = "/videoMake/ReceiveTask"                    # 领取题目的接口
+"""
+
+
 
 
 # token = 'your_token_here'
@@ -68,7 +82,7 @@ task_status_dict = {
 
 def get_request(interface_name, params=None):
     """ get 请求公共方法 """
-    print(f"headers: {headers}, params: {params}")
+    # print(f"headers: {headers}, params: {params}")
 
     try:
         response = requests.get(http_url + interface_name, headers=headers, params=params)  # 发送GET请求
@@ -116,7 +130,22 @@ def get_array():
     return results
 
 
+def print_curtime(custom_message):
+    """
+    # 打印当前时间和自定义信息
+    :param custom_message: 这是你的自定义信息
+    :return:
+    """
+    # 获取当前时间
+    now = datetime.datetime.now()
+
+    # 格式化当前时间
+    formatted_time = now.strftime("%Y-%m-%d %H:%M:%S")
+
+    print(f"{formatted_time} - {custom_message}")
+
+
 if __name__ == "__main__":
     results = get_array()
-    print(results)
-    print("chenyushen test")
+    print_curtime(results)
+    print_curtime("chenyushen test")

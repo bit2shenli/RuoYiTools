@@ -13,39 +13,42 @@
 """
 import json
 import time
-from datetime import datetime
-from common import post_request, get_new_tasks, post_headers
-
+from common import post_request, get_new_tasks, post_headers, print_curtime
 
 if __name__ == "__main__":
     # TODO 填充 token
-    token = "eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6IjI3NTRiMjcyLTNjMDYtNDllNi04ZWM4LWE1ZmY2YmQzZDExZiJ9.tojRWiXX2P_-bvOykiHUFo29ZiWFXX3U2g2ckMVjdDgvDc0jU9RsTxWQ6RNgb7CJWwDPlJqQbKSWdz0B0xQRbg"
+    token = "eyJhbGciOiJIUzUxMiJ9.eyJsb2dpbl91c2VyX2tleSI6ImY0ZDEyMzhjLTk5ZWYtNDA2Ni1iMGMwLWI0ZDhhMTIzYmZkNSJ9.op-xscDuCqVbjLl58Cw8KnyDdRELI6MvO7izIriRJ79fTzJrl_9eFTm5Fh_jK1QyhU-C2ccuKlhxx6dNe0VbWQ"
     post_headers(token)  # headers 加入 token
 
-    tasks_count = 20
+    tasks_count = 10        # 每次领取 10 道题
     post_data = {
         "videoTaskQuantity": tasks_count
-    }       # 每次领取 20 道题
+    }
 
     while True:
-        formatted_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")       # 获取当前时间戳
 
         try:
             results = post_request(get_new_tasks, **post_data)
 
+            if results["code"] == 500 or results["code"] == "500":
+                print_curtime(f"{results['msg']}")
+
             if results["msg"] == "存在未完成的任务，不能获取视频任务":
-                print(f"{formatted_time}\t\t已有题目了，冲冲冲")
+                print_curtime("已有题目了，冲冲冲")
                 break
 
             if results["stateCode"] == "200":  # 成功获取
-                print(f"{formatted_time}\t\t已获取{tasks_count}道题")
+                print_curtime(f"已获取 {tasks_count} 道题")
                 break
 
         except KeyError:        # results["code"] = 500     results["msg"] = "当前视频池没有数据"
-            print(f"{formatted_time}\t\t休息一会，重新尝试获取{tasks_count}道题")
+            print_curtime(f"休息一会，重新尝试获取 {tasks_count} 道题")
 
         except json.decoder.JSONDecodeError:
-            print(f"{results['msg']}")
+            print_curtime(results["msg"])
+
+        except Exception:
+            print_curtime("ConnectionAbortedError: [WinError 10053] 你的主机中的软件中止了一个已建立的连接。")
 
         time.sleep(1)
 
